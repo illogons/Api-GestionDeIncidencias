@@ -1,4 +1,4 @@
-package com.worktrack.worktrack.activitylog.domain.model;
+package com.worktrack.worktrack.project.domain.model;
 
 import com.worktrack.worktrack.user.domain.model.User;
 import jakarta.persistence.*;
@@ -6,41 +6,39 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name= "activitylog")
-public class ActivityLog {
+@Table( name= "ProjectUser")
+public class ProjectUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String action;
+    private LocalDateTime launchDate;
 
     @Column(nullable = false)
-    private String entityType;
+    private Boolean active;
 
-    @Column(nullable = false)
-    private Long entityId;
-
-    @Column(nullable = false)
-    private LocalDateTime date;
-
-    @PrePersist
-    public void prePersist() {
-        this.date = LocalDateTime.now();
-    }
+    @Lob
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn( name= "project_id")
+    private Project project;
+
+    @ManyToOne
+    @JoinColumn( name= "user_id")
     private User user;
 
 
