@@ -23,10 +23,10 @@ public class ProjectUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="LAUNCH_DATE",nullable = false)
     private LocalDateTime launchDate;
 
-    @Column(nullable = false)
+    @Column(name="ACTIVE",nullable = false)
     private Boolean active;
 
     @Lob
@@ -35,11 +35,11 @@ public class ProjectUser {
 
     @ManyToOne
     @JoinColumn( name= "project_id")
-    private Project project;
+    private Project projectId;
 
     @ManyToOne
     @JoinColumn( name= "user_id")
-    private User user;
+    private User userId;
 
 
 }

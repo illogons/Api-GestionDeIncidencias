@@ -23,10 +23,13 @@ public class Comment {
     private Long id;
 
     @Lob
-    @Column(nullable = false)
+    @Column(name = "MESSAGE", nullable = false)
     private String message;
 
-    @Column(nullable = false)
+    @Column(name = "ACTIVE")
+    private Boolean active;
+
+    @Column(name= "CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
@@ -36,7 +39,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    private Ticket ticketId;
 
 
 

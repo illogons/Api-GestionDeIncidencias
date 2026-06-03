@@ -23,23 +23,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="NAME",nullable = false)
     private String name;
 
-    @Column( nullable = false, unique = true)
+    @Column(name="EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column( nullable = false)
+    @Column(name="PASSWORD", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name="ROLE",nullable = false)
     protected Role role;
 
-    @Column(nullable = false)
+    @Column(name="ACTIVE",nullable = false)
     private Boolean active;
 
-    @Column(updatable = false)
+    @Column(name="CREATED_AT",updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist// se ejecuta antes de guardar nada, asi si se olvida el usuario se auto rellena
@@ -50,11 +50,11 @@ public class User {
 
     @ManyToOne
     @JoinColumn( name = "department_id")
-    private Department department;
+    private Department departmentId;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userId")
     private List<ActivityLog> activityLogs;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userId")
     private List<ProjectUser> projectUsers;
 }

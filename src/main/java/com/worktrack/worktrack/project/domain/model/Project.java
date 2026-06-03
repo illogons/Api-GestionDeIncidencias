@@ -25,21 +25,21 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name= "NAME", nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name= "DESCRIPTION",  columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "PROJECT_STATUS",nullable = false)
     private ProjectStatus projectStatus;
 
-    @Column(nullable = false)
+    @Column(name= "START_DATE", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startDate;
 
-    @Column()
+    @Column(name= "END_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endDate;
 
@@ -48,10 +48,10 @@ public class Project {
         this.startDate = LocalDateTime.now();
     }
 
-   @OneToMany(mappedBy = "project")
+   @OneToMany(mappedBy = "projectId")
    private List<ProjectUser> projectUsers;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "projectId")
     private List<Ticket> tickets;
 
 

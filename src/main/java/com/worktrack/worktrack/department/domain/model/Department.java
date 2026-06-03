@@ -21,12 +21,20 @@ public class Department {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="NAME", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name="ACTIVE",nullable = false)
+    private Boolean active;
+
+    @Column(name="DESCRIPTION",  columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "department")
+    @PrePersist
+    public void prePersist() {
+        this.active = true;
+    }
+
+    @OneToMany(mappedBy = "departmentId")
     private List<User> users;
 }

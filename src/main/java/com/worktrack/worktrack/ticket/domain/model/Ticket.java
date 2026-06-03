@@ -25,27 +25,27 @@ public class Ticket {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="TITLE",nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name="DESCRIPTION",nullable = false,  columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name="TICKET_STATUS",nullable = false)
     private TicketStatus ticketStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name="TICKET_PRIORITY",nullable = false)
     private TicketPriority ticketPriority;
 
-    @Column(nullable = false)
+    @Column(name="ACTIVE",nullable = false)
     private Boolean active;
 
-    @Column(nullable = false)
+    @Column(name="CREATED_AT",nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(name="UPDATE_AT",nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
@@ -60,12 +60,12 @@ public class Ticket {
         this.updatedAt = LocalDateTime.now();
     }
 
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticketId")
     private List<Comment> comments;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
-    private Project project;
+    private Project projectId;
 
 
 
