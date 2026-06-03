@@ -1,5 +1,6 @@
 package com.worktrack.worktrack.ticket.domain.model;
 
+import com.worktrack.worktrack.project.domain.model.Project;
 import com.worktrack.worktrack.ticket.domain.enums.TicketPriority;
 import com.worktrack.worktrack.ticket.domain.enums.TicketStatus;
 import jakarta.persistence.*;
@@ -8,7 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.xml.stream.events.Comment;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -56,6 +59,13 @@ public class Ticket {
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Comment> comments;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
 
 

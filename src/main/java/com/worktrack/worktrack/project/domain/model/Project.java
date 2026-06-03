@@ -1,6 +1,8 @@
 package com.worktrack.worktrack.project.domain.model;
 
 import com.worktrack.worktrack.project.domain.enums.ProjectStatus;
+import com.worktrack.worktrack.ticket.domain.model.Ticket;
+import com.worktrack.worktrack.user.domain.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,6 +44,18 @@ public class Project {
     public void prePersist() {
         this.startDate = LocalDateTime.now();
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "project_users",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
+
+    @OneToMany(mappedBy = "project")
+    private List<Ticket> tickets;
+
 
 
 

@@ -1,10 +1,14 @@
 package com.worktrack.worktrack.user.domain.model;
 
+import com.worktrack.worktrack.activitylog.domain.model.ActivityLog;
+import com.worktrack.worktrack.department.domain.model.Department;
+import com.worktrack.worktrack.project.domain.model.Project;
 import com.worktrack.worktrack.user.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -42,5 +46,16 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.active = true;
     }
+
+    @ManyToOne
+    @JoinColumn( name = "department_id")
+    private Department department;
+
+    @OneToMany(mappedBy = "user")
+    private List<ActivityLog> activityLogs;
+
+
+    @ManyToMany(mappedBy = "users")
+    private List<Project> projects;
 
 }
