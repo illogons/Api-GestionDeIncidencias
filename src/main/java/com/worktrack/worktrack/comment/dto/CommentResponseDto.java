@@ -16,6 +16,8 @@ public class CommentResponseDto {
     private String message;
     private Boolean active;
     private LocalDateTime createdAt;
+    private Long ticketId;
+
 
 
 
