@@ -14,7 +14,7 @@ public class DepartmentRequestDto {
     @NotBlank(message = "name required")
     private String name;
 
-    @Size(max = 500, message = "comment description must not exceed 5000 characters")
+    @Size(max = 5000, message = "comment description must not exceed 5000 characters")
     private String description;
 
 
