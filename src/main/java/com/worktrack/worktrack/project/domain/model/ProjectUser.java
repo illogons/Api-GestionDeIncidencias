@@ -33,6 +33,12 @@ public class ProjectUser {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @PrePersist
+    public void prePersist() {
+        this.launchDate = LocalDateTime.now();
+        this.active = true;
+    }
+
     @ManyToOne
     @JoinColumn( name= "project_id")
     private Project projectId;

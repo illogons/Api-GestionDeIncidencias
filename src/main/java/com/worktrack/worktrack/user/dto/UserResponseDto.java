@@ -15,7 +15,6 @@ public class UserResponseDto {
     private Long id;
     private String name;
     private String email;
-    private String password;
     protected Role role;
     private Boolean active;
     private LocalDateTime createdAt;

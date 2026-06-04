@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserRequestDto {
 
-    private Long id;
 
     @NotBlank(message = "must to have a name")
     private String name;

@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TicketRequestDto {
 
-    private Long id;
 
     @NotBlank(message = "the issue have to have a title")
     private String title;

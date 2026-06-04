@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentRequestDto {
 
-    private Long id;
 
     @NotBlank(message = "message required")
     private String message;

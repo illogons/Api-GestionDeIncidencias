@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DepartmentRequestDto {
 
-    private Long id;
-
     @NotBlank(message = "name required")
     private String name;
 
