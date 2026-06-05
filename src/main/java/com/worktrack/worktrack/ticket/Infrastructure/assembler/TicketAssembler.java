@@ -14,8 +14,9 @@ public class TicketAssembler {
         BeanUtils.copyProperties(dto, ticket);
         return ticket;
     }
-    public void toUpdate (TicketRequestDto dto, Ticket ticket){
+    public Ticket toUpdate (TicketRequestDto dto, Ticket ticket){
         BeanUtils.copyProperties(dto, ticket);
+        return ticket;
     }
     public TicketResponseDto toDto(Ticket model){
         TicketResponseDto ticketResponseDto = new TicketResponseDto();
