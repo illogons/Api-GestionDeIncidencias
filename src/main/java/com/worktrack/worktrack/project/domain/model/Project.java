@@ -48,8 +48,8 @@ public class Project {
         this.startDate = LocalDateTime.now();
     }
 
-   @OneToMany(mappedBy = "projectId")
-   private List<ProjectUser> projectUsers;
+    @OneToMany(mappedBy = "projectId")
+    private List<ProjectUser> projectUsers;
 
     @OneToMany(mappedBy = "projectId")
     private List<Ticket> tickets;
