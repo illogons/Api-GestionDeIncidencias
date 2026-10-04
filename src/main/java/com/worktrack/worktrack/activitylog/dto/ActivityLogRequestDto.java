@@ -1,7 +1,6 @@
 package com.worktrack.worktrack.activitylog.dto;
 
 import com.worktrack.worktrack.user.domain.model.User;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

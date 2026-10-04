@@ -39,7 +39,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
-    private Ticket ticketId;
+    private Ticket  ticketId;
 
 
 

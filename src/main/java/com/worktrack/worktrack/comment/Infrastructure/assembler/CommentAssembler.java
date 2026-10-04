@@ -17,7 +17,12 @@ public class CommentAssembler {
         BeanUtils.copyProperties(dto, comment);
         return comment;
     }
-    public CommentResponseDto toModel (Comment model){
+
+    public void toUpdate (CommentRequestDto dto, Comment comment )  {
+        BeanUtils.copyProperties(dto, comment );
+    }
+
+    public CommentResponseDto toDto (Comment model){
         CommentResponseDto commentResponseDto = new CommentResponseDto();
         BeanUtils.copyProperties(model, commentResponseDto);
 

@@ -38,7 +38,7 @@ public class TicketServiceImpl implements TicketService {
                 .map(ticketAssembler::toDto)
                 .toList();
 
-        log.info("getTicket(): lista={}", lista);
+        log.info("getTicket(): lista={}", lista.size());
         return lista;
     }
 

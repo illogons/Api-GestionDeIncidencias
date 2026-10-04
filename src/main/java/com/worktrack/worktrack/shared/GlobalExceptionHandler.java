@@ -1,10 +1,8 @@
 package com.worktrack.worktrack.shared;
 
 import com.worktrack.worktrack.shared.ErrorResponse;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.worktrack.worktrack.shared.WorkTrackException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +12,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
-@RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-    private final MessageSource messageSource;
-
+    @ExceptionHandler(WorkTrackException.class)
+    public ResponseEntity<ErrorResponse> handleWorkTrackException(WorkTrackException ex) {
+        log.warn("WorkTrack exception: {}", ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(
+                new ErrorResponse(ex.getStatus().value(), ex.getMessage(), LocalDateTime.now(), null)
+        );
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
@@ -58,25 +59,4 @@ public class GlobalExceptionHandler {
                 new ErrorResponse(500, "An unexpected error occurred", LocalDateTime.now(), Map.of("errorId", errorId))
         );
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex, Locale locale) {
-
-        String errorId = UUID.randomUUID().toString();
-
-        log.error("UNEXPECTED ERROR [ID: {}]: {} - Trace: ", errorId, ex.getMessage(), ex);
-
-        Map<String, String> details = Map.of("errorId", errorId);
-        return buildResponse("error.internal.server", HttpStatus.INTERNAL_SERVER_ERROR, locale, details);
-    }
-
-    private ResponseEntity<ErrorResponse> buildResponse(String messageKey, HttpStatus status, Locale locale, Map<String, String> details) {
-
-        // Fetch the localized message using the message key and locale
-        String message = messageSource.getMessage(messageKey, null, messageKey, locale);
-        // Create an ErrorResponse object with the status, message, timestamp, and details
-        ErrorResponse error = new ErrorResponse(status.value(), message, LocalDateTime.now(), details);
-        return new ResponseEntity<>(error, status);
-    }
-    
 }
